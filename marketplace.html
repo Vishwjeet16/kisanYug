@@ -251,7 +251,7 @@
 
 <script src="kisan.js"></script>
 <script>
-// Voice Command Feature for Marketplace
+// voice ke liye h or thodi si css me change krna h
 function speak(text) {
   const msg = new SpeechSynthesisUtterance(text);
   msg.lang = "en-IN"; // Indian English accent
@@ -280,10 +280,11 @@ async function fetchProducts() {
 
     const products = await response.json();
     console.log(products);
-    // अब तुम इन प्रोडक्ट्स को फ्रंटेंड पर डिस्प्ले कर सकते हो
+  
 }
 
 </script>
 
 </body>
+
 </html>
