@@ -1,6 +1,6 @@
 
  :root {
-    --brand: #28a745; /* Fresh green tone for the agricultural theme */
+    --brand: #28a745; 
     --background: rgba(134, 239, 172, 0.08);
     --text-color: #333;
     --input-border: #ccc;
@@ -87,7 +87,7 @@ body {
 }
 
 .btn.primary:hover {
-    background-color: #218838; /* Slightly darker green on hover */
+    background-color: #218838; 
 }
 
 a .btn {
@@ -100,3 +100,4 @@ a .btn {
 .logo {
     font-size: 3rem;
 }
+
