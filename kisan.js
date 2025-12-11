@@ -1,12 +1,12 @@
 
-    // Mobile nav
+    // Mobile nav ke liye
     const navToggle = document.getElementById('navToggle');
     const navLinks  = document.getElementById('navLinks');
     navToggle?.addEventListener('click', () => {
       document.body.classList.toggle('nav-open');
     });
 
-    // Smooth scroll
+    // Smooth scroll ( or thoda )
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href');
@@ -20,7 +20,7 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Farmer Pass logic
+    // Farmer Pass logic ka h ye
     const form = document.getElementById('passForm');
     const printBtn = document.getElementById('printPass');
     const clearBtn = document.getElementById('clearPass');
@@ -53,7 +53,7 @@
       pArea.textContent    = areaIn.value || '—';
       pValid.textContent   = validIn.value || '—';
       pId.textContent      = (idIn.value || randomId());
-      // Minimal QR placeholder (for demo). Replace with real QR lib if needed.
+      // Minimal QR placeholder (for demo ke le karna h mujhe). Replace with real QR lib if needed.
       qr.textContent = 'QR';
       qr.title = qrIn.value || '';
     }
@@ -84,7 +84,7 @@
       form.reset(); updatePreview(); localStorage.removeItem('agripass');
     });
 
-    // Restore saved pass
+    // Restore saved pass thode gadbad h
     (function(){
       const data = localStorage.getItem('agripass');
       if (!data) return;
@@ -112,16 +112,16 @@
     });
     // </script>
     
-  // ---- Voice + Speak Feature for Marketplace ----
+  // voicwe ke liye h
   const voiceBtn = document.getElementById("voiceBtn");
   const voiceStatus = document.getElementById("voiceStatus");
 
   // Function to speak text
   function speak(text) {
-    speechSynthesis.cancel(); // ✅ prevent overlapping
+    speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = "en-IN"; // Indian English accent
-    utter.rate = 1; // normal speed
+    utter.lang = "en-IN"; 
+    utter.rate = 1; 
     utter.pitch = 1;
     speechSynthesis.speak(utter);
   }
@@ -177,7 +177,7 @@
     voiceStatus.textContent = "❌ Voice recognition not supported in this browser.";
   }
 
-  // Button-based "Speak Price"
+  //  "Speak Price ke liye h or krna h"
   document.querySelectorAll(".speak-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const product = btn.closest(".product");
@@ -186,5 +186,6 @@
       speak(`${name} price is ${price}`);
     });
   });
+
 
 
