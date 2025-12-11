@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="kisan.css">
+</head>
+<body>
+     <header>
+    <div class="container nav" id="top">
+      <div class="brand">
+        <div class="logo">🌱</div>
+        KisanYug
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="home.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="farmerpass.html">Farmer Pass</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="btn mobile-toggle" id="navToggle" aria-label="Toggle Menu">☰</button>
+    </div>
+  </header>  
+  <section class="container" id="contact">
+  <div class="section-title">
+    <h2>Contact</h2>
+    <span class="section-sub">Have questions? We’re here to help.</span>
+  </div>
+  <div class="contact">
+    <div class="card">
+      <h3>Send a Message</h3>
+      <form id="contactForm" >
+        <div class="row">
+          <div>
+            <label for="cname">Name</label>
+            <input id="cname" required />
+          </div>
+          <div>
+            <label for="cemail">Email</label>
+            <input id="cemail" type="email" placeholder="name@example.com" required />
+          </div>
+        </div>
+        <label for="cmsg">Message</label>
+        <textarea id="cmsg" rows="5" placeholder="How can we help?" required></textarea>
+        <div class="cta-row">
+          <button class="btn primary" type="submit">Send</button>
+        </div>
+        <div class="helper" id="contactResult"></div>
+      </form>
+    </div>
+    <div class="card">
+      <h3>Office</h3>
+      <p class="muted">AgriPass HQ<br/>Near Mandi Road, Indore, MP</p>
+      <p class="muted">Email: hello@agripass.example<br/>Phone: +91-940844421 </p>
+      <span class="pill">Open: Mon–Sat, 9am–6pm</span>
+    </div>
+  </div>
+</section>
+  <footer>
+    <div class="container">© <span id="year"></span> AgriPass • Built for farmers with ❤</div>
+</footer> 
+<script src="kisan.js"></script>
+<script>
+document.getElementById('contactForm')?.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+
+  try{
+    const payload = {
+      name: document.getElementById('cname').value,
+      email: document.getElementById('cemail').value,
+      message: document.getElementById('cmsg').value
+    };
+
+    const res = await fetch('http://127.0.0.1:5000/api/contact', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    document.getElementById('contactResult').textContent = data.message || data.error;
+  }
+  catch(err){
+    document.getElementById('contactResult').textContent = "❌ Server not responding!";
+    console.log(err);
+  }
+
+});
+</script>
+
+
+</body>
+</html>

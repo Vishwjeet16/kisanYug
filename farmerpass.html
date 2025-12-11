@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="kisan.css">
+</head>
+<body>
+    <header>
+    <div class="container nav" id="top">
+      <div class="brand">
+        <div class="logo">🌱</div>
+        KisanYug
+      </div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="secu.html">Services</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="farmerpass.html">Farmer Pass</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button class="btn mobile-toggle" id="navToggle" aria-label="Toggle Menu">☰</button>
+    </div>
+  </header> 
+  <section class="container" id="pass">
+  <div class="section-title">
+    <h2>Digital Farmer Pass</h2>
+    <span class="section-sub">Generate & print a verified pass</span>
+  </div>
+  <div class="pass-wrap">
+    <div class="pass" id="farmer-pass" aria-label="Farmer Pass Preview">
+      <div class="hdr">
+        <div>
+          <div class="badge">AgriPass • Verified</div>
+          <h4 id="pName">Farmer: —</h4>
+          <span class="muted" id="pVillage">Village: —</span>
+        </div>
+        <div class="chip" aria-hidden="true"></div>
+      </div>
+      <div class="pass-grid">
+        <div class="kv">
+          <label>Primary Crop</label>
+          <div id="pCrop">—</div>
+        </div>
+        <div class="kv">
+          <label>Season</label>
+          <div id="pSeason">—</div>
+        </div>
+        <div class="kv">
+          <label>Area (Acres)</label>
+          <div id="pArea">—</div>
+        </div>
+        <div class="kv">
+          <label>Valid Till</label>
+          <div id="pValid">—</div>
+        </div>
+      </div>
+      <div class="pass-footer">
+        <div class="qr" id="qr">QR</div>
+        <span class="pill">ID: <span id="pId">AGP-000000</span></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <form id="passForm" aria-label="Generate Farmer Pass" onsubmit="event.preventDefault(); createFarmerPass();">
+        <div class="row">
+          <div>
+            <label for="name">Full Name</label>
+            <input id="name" name="name" placeholder="e.g., Ramesh Kumar" required />
+          </div>
+          <div>
+            <label for="village">Village / City</label>
+            <input id="village" name="village" placeholder="e.g., Janapav, Mhow" required />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="crop">Primary Crop</label>
+            <select id="crop" name="crop" required>
+              <option value="" disabled selected>Select crop</option>
+              <option>Wheat</option>
+              <option>Rice</option>
+              <option>Cotton</option>
+              <option>Soybean</option>
+              <option>Maize</option>
+              <option>Vegetables</option>
+            </select>
+          </div>
+          <div>
+            <label for="season">Season</label>
+            <select id="season" name="season" required>
+              <option value="" disabled selected>Select season</option>
+              <option>Kharif</option>
+              <option>Rabi</option>
+              <option>Zaid</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="area">Land Area (acres)</label>
+            <input id="area" name="area" type="number" min="0" step="0.1" placeholder="e.g., 3.5" required />
+          </div>
+          <div>
+            <label for="valid">Valid Till</label>
+            <input id="valid" name="valid" type="date" required />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="id">Custom ID (optional)</label>
+            <input id="id" name="id" placeholder="e.g., MP-IND-2025-001" />
+          </div>
+          <div>
+            <label for="qrtext">QR Text</label>
+            <input id="qrtext" name="qrtext" placeholder="e.g., Ramesh|Janapav|Wheat" required />
+          </div>
+        </div>
+        <div class="cta-row">
+          <button type="submit" class="btn primary">Generate Pass</button>
+          <button type="button" class="btn" id="printPass">Print Pass</button>
+          <button type="button" class="btn" id="clearPass">Clear</button>
+        </div>
+        <div class="helper">Tip: Use a future date for validity. Printing will isolate only the pass.</div>
+      </form>
+    </div>
+  </div>
+</section>
+  <footer>
+    <div class="container">© <span id="year"></span> AgriPass • Built for farmers with ❤</div>
+</footer> 
+<script src="kisan.js"></script>
+<script>
+async function createFarmerPass() {
+    const farmerData = {
+        village: document.getElementById("village").value,
+        crop: document.getElementById("crop").value,
+        season: document.getElementById("season").value,
+        area: parseFloat(document.getElementById("area").value),
+        valid_till: document.getElementById("valid").value,    // FIXED
+        custom_id: document.getElementById("id").value,        // FIXED
+        qr_text: document.getElementById("qrtext").value       // FIXED
+    };
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/api/farmerpass", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(farmerData),
+            credentials: "include"
+        });
+
+        const data = await response.json();
+        alert(data.message || data.error);
+
+    } catch (err) {
+        console.error("❌ Backend error:", err);
+        alert("Backend से connect नहीं हो पाया");
+    }
+}
+</script>
+
+
+</body>
+</html>

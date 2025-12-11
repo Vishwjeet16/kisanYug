@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - KisanMarket</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <section class="hero container" id="home">
+        <div class="hero-grid">
+            <div class="logo">🌱</div>
+            KisanYug
+        </div>
+        <section class="auth-container" id="login">
+            <h2>Login</h2>
+            <form id="login-form" class="auth-form" onsubmit="event.preventDefault(); loginUser();">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+
+                <button type="submit" class="btn primary">Login</button>
+                <a href="signup.html" class="btn primary">Don't have an account? Sign Up</a>
+            </form>
+        </section>
+        <footer>
+            <!-- <a href="signup.html" class="btn primary">Don't have an account? Sign Up</a> -->
+        </footer>
+    </section>
+
+    <script>
+        // async function loginUser() {
+        //     const email = document.getElementById("login-email").value;
+        //     const password = document.getElementById("login-password").value;
+
+        //     try {
+        //         const response = await fetch("http://127.0.0.1:5000/api/login", { 
+
+                 
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-Type": "application/json"
+        //             },
+        //             body: JSON.stringify({ email, password }),
+        //             credentials: "include"
+        //         });
+
+        //         const data = await response.json();
+        //         if (response.ok) {
+        //             alert("Login successful!");
+        //             // होम पेज़ पर रीडायरेक्ट करें
+        //             window.location.href = "home.html";
+        //         } else {
+        //             alert(data.error);
+        //         }
+        //     } catch (error) {
+        //         console.error("Error during login:", error);
+        //         alert("An error occurred. Please try again.");
+        //     }
+        // }
+    async function loginUser() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+            credentials: "include"
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Login successful!");
+            window.location.href = "home.html";
+        } else {
+            alert(data.error);
+        }
+
+    } catch (error) {
+        console.error("Error during login:", error);
+        alert("Backend not responding.");
+    }
+}
+
+    </script>
+</body>
+</html>
