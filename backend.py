@@ -9,14 +9,14 @@ import base64
 from io import BytesIO  
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
-app.config['MONGO_URI'] = "mongodb://localhost:27017/kisanmarket"  # MongoDB Database
+app.config['MONGO_URI'] = "mongodb://localhost:27017/kisanmarket"  
 
 mongo = PyMongo(app)
 CORS(app, supports_credentials=True)
 
 
 
-# ------------------- SIGNUP -------------------
+# SIGNUP 
 @app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.json
@@ -45,7 +45,7 @@ def signup():
     return jsonify({"message": "User registered successfully"}), 201
 
 
-# ------------------- LOGIN -------------------
+#  LOGIN 
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.json
@@ -64,14 +64,14 @@ def login():
     return jsonify({"error": "Invalid credentials"}), 401
 
 
-# ------------------- LOGOUT -------------------
+# LOGOUT 
 # @app.route('/api/logout', methods=['POST'])
 # def logout():
 #     session.pop('user_id', None)
 #     return jsonify({"message": "Logged out"}), 200
 
 
-# ------------------- CREATE FARMER PASS -------------------
+#  CREATE FARMER PASS
 @app.route('/api/farmerpass', methods=['POST'])
 def create_farmer_pass():
     if 'user_id' not in session:
@@ -98,7 +98,7 @@ def create_farmer_pass():
     return jsonify({"message": "Farmer pass created", "id": str(result.inserted_id)}), 201
 
 
-# ------------------- GET FARMER PASS -------------------
+#  GET FARMER PASS 
 # @app.route('/api/farmerpass/<string:pass_id>', methods=['GET'])
 # def get_farmer_pass(pass_id):
     
@@ -156,7 +156,7 @@ def create_pass():
     }), 201
 
 
-# ------------------- CONTACT FORM -------------------
+# CONTACT FORM
 @app.route('/api/contact', methods=['POST'])
 def contact():
     data = request.json
@@ -174,7 +174,7 @@ def contact():
     return jsonify({"message": "Message received. We will reply within 24 hours."}), 201
 
 
-# ------------------- PRODUCT LIST (STATIC) -------------------
+#  PRODUCT LIST (STATIC) 
 @app.route('/api/products', methods=['GET'])
 def get_products():
     products = [
@@ -188,80 +188,9 @@ def get_products():
     return jsonify(products)
 
 
-# ------------------- RUN SERVER -------------------
+#  RUN SERVER 
 if __name__ == "__main__":
     app.run(debug=True , port=5000)
 
 
-# from flask import Flask, request, jsonify, session
-# from flask_pymongo import PyMongo
-# from werkzeug.security import generate_password_hash, check_password_hash
-# from flask_cors import CORS
-# from datetime import datetime
 
-# app = Flask(__name__)
-
-# # Secret Key for session handling
-# app.config['SECRET_KEY'] = "MY_SECRET_KEY"
-
-# # Your MongoDB connection
-# app.config['MONGO_URI'] = "mongodb://localhost:27017/kisanmarket"
-
-# mongo = PyMongo(app)
-
-# # Allow frontend to access backend
-# CORS(app, supports_credentials=True)
-
-
-# # ------------------- SIGNUP API -------------------
-# @app.route('/api/signup', methods=['POST'])
-# def signup():
-#     data = request.json
-#     name = data.get("name")
-#     email = data.get("email")
-#     password = data.get("password")
-#     confirm_password = data.get("confirm_password")
-
-#     if not all([name, email, password, confirm_password]):
-#         return jsonify({"error": "All fields required"}), 400
-
-#     if password != confirm_password:
-#         return jsonify({"error": "Passwords do not match"}), 400
-
-#     if mongo.db.users.find_one({"email": email}):
-#         return jsonify({"error": "Email already exists"}), 400
-
-#     hashed_pass = generate_password_hash(password)
-
-#     mongo.db.users.insert_one({
-#         "name": name,
-#         "email": email,
-#         "password_hash": hashed_pass,
-#         "created_at": datetime.utcnow()
-#     })
-
-#     return jsonify({"message": "Signup successful"}), 201
-
-
-# # ------------------- LOGIN API -------------------
-# @app.route('/api/login', methods=['POST'])
-# def login():
-#     data = request.json
-#     email = data.get('email')
-#     password = data.get('password')
-
-#     if not all([email, password]):
-#         return jsonify({"error": "Missing email or password"}), 400
-
-#     user = mongo.db.users.find_one({"email": email})
-
-#     if user and check_password_hash(user["password_hash"], password):
-#         session['user_id'] = str(user["_id"])
-#         return jsonify({"message": "Login successful"}), 200
-
-#     return jsonify({"error": "Invalid credentials"}), 401
-
-
-# # ------------------- SERVER RUN -------------------
-# if __name__ == "__main__":
-#     app.run(debug=True, port=5000)
