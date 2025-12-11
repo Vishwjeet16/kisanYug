@@ -5,9 +5,9 @@
       --card: #121c18;
       --muted: #8aa39b;
       --text: #e8f1ed;
-      --brand: #22c55e; /* emerald-500 */
+      --brand: #22c55e; 
       --brand-600: #16a34a;
-      --accent: #86efac; /* emerald-300 */
+      --accent: #86efac; 
       --ring: rgba(134, 239, 172, 0.45);
       --danger: #ef4444;
       --warn: #f59e0b;
@@ -58,7 +58,7 @@ header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(140%) 
 .purchase{ background: rgba(134,239,172,.08); opacity: 1; }
 .mobile-toggle { display:none; }
 
-/* Hero */
+/* Hone */
 .hero { padding: 80px 0 30px; }
 .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: center; }
 .badge { display:inline-flex; gap:8px; align-items:center; background: rgba(196, 216, 203, 0.12); border: 1px solid rgba(134,239,172,.2); padding: 6px 10px; border-radius: 999px; font-size: 12px; color: var(--accent); }
@@ -145,4 +145,5 @@ footer { border-top: 1px solid rgba(134,239,172,.12); padding: 28px 0; color: va
   #farmer-pass, #farmer-pass * { visibility: visible; }
   #farmer-pass { position: absolute; left: 0; top: 0; width: 100%; }
 }
+
 
